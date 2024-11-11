@@ -1,31 +1,47 @@
 import promptSync from 'prompt-sync';
-import { AlunoController } from './Controllers/AlunoController';
-import { DisciplinaController } from './Controllers/DisciplinaController';
-import { BibliotecaController } from './Controllers/BibliotecaController';
-import { AlunoView } from './views/AlunoView';
-import { DisciplinaView } from './views/DisciplinaView';
-import { BibliotecaView } from './views/BibliotecaView';
+import { AlunoController } from './Controllers/aluno/AlunoController';
+import { AlunoView } from './views/aluno/AlunoView';
+import { AlunoService } from './models/aluno/AlunoService';
 
-// Criando a função de prompt
 const prompt = promptSync();
 
 async function main() {
     const alunoController = new AlunoController();
-    const disciplinaController = new DisciplinaController();
-    const bibliotecaController = new BibliotecaController();
-
     const alunoView = new AlunoView(alunoController);
-    const disciplinaView = new DisciplinaView(disciplinaController);
-    const bibliotecaView = new BibliotecaView(bibliotecaController);
-
-    // // Pedindo o ID do aluno ao usuário
-    // const idAluno = prompt("Por favor, insira o ID ou o NOME do aluno que deseja buscar: ");
-    // await alunoView.buscarAluno(idAluno);
 
 
-    // await bibliotecaView.mostrarLivros();
 
-    await disciplinaView.mostrarDisciplinas();
+    alunoView.inicializar();
+
+    
+
+    
+    let opcao: string;
+
+    do {
+        console.log('\nEscolha uma opção:');
+        console.log('1. Listar alunos de História');
+        console.log('2. Buscar aluno por ID ou nome');
+        console.log('0. Sair');
+
+        opcao = prompt('Digite a opção: ');
+
+        switch (opcao) {
+            case '1':
+                await alunoView.mostrarAlunosDeHistoria();
+                break;
+            case '2':
+                const idOuNome = prompt('Digite o ID ou nome do aluno: ');
+                await alunoView.mostrarDetalhesAluno(idOuNome);
+                break;
+            case '0':
+                console.log('Saindo...');
+                break;
+            default:
+                console.log('Opção inválida. Tente novamente.');
+                break;
+        }
+    } while (opcao !== '0');
 }
 
 main();

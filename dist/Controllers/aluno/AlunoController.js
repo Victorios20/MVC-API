@@ -8,20 +8,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BibliotecaService = void 0;
-const axios_1 = __importDefault(require("axios"));
-const LivroModel_1 = require("../models/LivroModel");
-const BASE_URL = 'https://qiiw8bgxka.execute-api.us-east-2.amazonaws.com/acervo/biblioteca';
-class BibliotecaService {
-    listarLivros() {
+exports.AlunoController = void 0;
+const AlunoService_1 = require("../models/aluno/AlunoService");
+class AlunoController {
+    constructor() {
+        this.alunoService = new AlunoService_1.AlunoService();
+    }
+    listarAlunosHistoria() {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield axios_1.default.get(BASE_URL);
-            return response.data.map((livro) => new LivroModel_1.Livro(livro.id, livro.titulo, livro.autor, livro.ano, livro.status));
+            return yield this.alunoService.listarAlunosHistoria();
+        });
+    }
+    buscarAluno(idOuNome) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.alunoService.buscarAluno(idOuNome);
         });
     }
 }
-exports.BibliotecaService = BibliotecaService;
+exports.AlunoController = AlunoController;

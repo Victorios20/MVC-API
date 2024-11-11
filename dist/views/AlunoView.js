@@ -14,16 +14,21 @@ class AlunoView {
     constructor(controller) {
         this.controller = controller;
     }
-    mostrarAlunos() {
+    mostrarAlunosDeHistoria() {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("Alunos: ");
-            const alunos = yield this.controller.listar();
-            alunos.forEach(aluno => console.log(`${aluno.nome} (${aluno.id})`));
+            console.log("Alunos do curso de História, modalidade presencial: ");
+            const alunos = yield this.controller.listarAlunosHistoria();
+            if (alunos.length > 0) {
+                alunos.forEach(aluno => console.log(`${aluno.nome} (${aluno.id})`));
+            }
+            else {
+                console.log("Nenhum aluno encontrado.");
+            }
         });
     }
-    buscarAluno(id) {
+    mostrarDetalhesAluno(idOuNome) {
         return __awaiter(this, void 0, void 0, function* () {
-            const aluno = yield this.controller.buscar(id);
+            const aluno = yield this.controller.buscarAluno(idOuNome);
             if (aluno) {
                 console.log(`Aluno encontrado: ${aluno.nome}, Curso: ${aluno.curso}, Modalidade: ${aluno.modalidade}, Status: ${aluno.status}`);
             }

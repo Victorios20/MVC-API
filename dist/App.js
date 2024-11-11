@@ -13,27 +13,37 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const prompt_sync_1 = __importDefault(require("prompt-sync"));
-const AlunoController_1 = require("./Controllers/AlunoController");
-const DisciplinaController_1 = require("./Controllers/DisciplinaController");
-const BibliotecaController_1 = require("./Controllers/BibliotecaController");
+const AlunoController_1 = require("./Controllers/aluno/AlunoController");
 const AlunoView_1 = require("./views/AlunoView");
-const DisciplinaView_1 = require("./views/DisciplinaView");
-const BibliotecaView_1 = require("./views/BibliotecaView");
 // Criando a função de prompt
 const prompt = (0, prompt_sync_1.default)();
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         const alunoController = new AlunoController_1.AlunoController();
-        const disciplinaController = new DisciplinaController_1.DisciplinaController();
-        const bibliotecaController = new BibliotecaController_1.BibliotecaController();
         const alunoView = new AlunoView_1.AlunoView(alunoController);
-        const disciplinaView = new DisciplinaView_1.DisciplinaView(disciplinaController);
-        const bibliotecaView = new BibliotecaView_1.BibliotecaView(bibliotecaController);
-        // // Pedindo o ID do aluno ao usuário
-        // const idAluno = prompt("Por favor, insira o ID ou o NOME do aluno que deseja buscar: ");
-        // await alunoView.buscarAluno(idAluno);
-        // await bibliotecaView.mostrarLivros();
-        yield disciplinaView.mostrarDisciplinas();
+        let opcao;
+        do {
+            console.log('\nEscolha uma opção:');
+            console.log('1. Listar alunos de História');
+            console.log('2. Buscar aluno por ID ou nome');
+            console.log('0. Sair');
+            opcao = prompt('Digite a opção: ');
+            switch (opcao) {
+                case '1':
+                    yield alunoView.mostrarAlunosDeHistoria();
+                    break;
+                case '2':
+                    const idOuNome = prompt('Digite o ID ou nome do aluno: ');
+                    yield alunoView.mostrarDetalhesAluno(idOuNome);
+                    break;
+                case '0':
+                    console.log('Saindo...');
+                    break;
+                default:
+                    console.log('Opção inválida. Tente novamente.');
+                    break;
+            }
+        } while (opcao !== '0');
     });
 }
 main();
