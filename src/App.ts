@@ -11,7 +11,7 @@ async function main() {
 
 
 
-    alunoView.inicializar();
+    // alunoView.inicializar();
 
     
 

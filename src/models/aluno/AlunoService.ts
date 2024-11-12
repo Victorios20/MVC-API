@@ -9,12 +9,12 @@ export class AlunoService {
 
      async inicializar(): Promise<void> {
         if (this.alunosCache.length === 0) {
-            console.log('inicializou');
+            console.log('///////////////////////////inicializou Aluno cache///////////////////////////');
             const response = await axios.get(BASE_URL);
             this.alunosCache = await response.data.map((aluno: Aluno) => new Aluno(aluno));
             
         } else {
-            console.log('array cheio');
+            console.log('///////////////////////////array Aluno Cache preenchido///////////////////////////');
         }
     }
 
