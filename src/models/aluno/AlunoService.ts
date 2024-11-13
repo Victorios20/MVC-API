@@ -20,8 +20,7 @@ export class AlunoService {
 
     listarAlunosHistoria(): Aluno[] {
         return this.alunosCache.filter(
-            (aluno: Aluno) => aluno.curso === 'História' && aluno.modalidade === 'Presencial'
-        );
+            (aluno: Aluno) => aluno.curso === 'História' && aluno.modalidade === 'Presencial');
     }
 
     buscarAluno(idOuNome: string): Aluno | null {

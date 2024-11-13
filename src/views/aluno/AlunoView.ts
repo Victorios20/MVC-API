@@ -12,21 +12,43 @@ export class AlunoView {
         await this.controller.inicializar();
     }
     async mostrarAlunosDeHistoria(): Promise<void> {
-        console.log("Alunos do curso de História, modalidade presencial: ");
+        console.log("\n===============================================");
+        console.log("      Alunos do Curso de História (Presencial)  ");
+        console.log("===============================================\n");
+    
         const alunos = await this.controller.listarAlunosHistoria();
+        
         if (alunos.length > 0) {
-            alunos.forEach(aluno => console.log(`${aluno.nome} (${aluno.id})`));
+            alunos.forEach(aluno => {
+                console.log(`📖 Nome: ${aluno.nome}`);
+                console.log(`🆔 ID  : ${aluno.id}`);
+                console.log("-----------------------------------------------");
+            });
         } else {
-            console.log("Nenhum aluno encontrado.");
+            console.log("❌ Nenhum aluno encontrado no curso de História.");
         }
+    
+        console.log("===============================================\n");
     }
+    
 
     async mostrarDetalhesAluno(idOuNome: string): Promise<void> {
         const aluno = await this.controller.buscarAluno(idOuNome);
         if (aluno) {
-            console.log(`Aluno encontrado: ${aluno.nome}, Curso: ${aluno.curso}, Modalidade: ${aluno.modalidade}, Status: ${aluno.status}`);
+            console.log("\n=============================");
+            console.log("        Aluno Encontrado      ");
+            console.log("=============================");
+            console.log(`📚 Nome        : ${aluno.nome}`);
+            console.log(`🎓 Curso       : ${aluno.curso}`);
+            console.log(`🏫 Modalidade  : ${aluno.modalidade}`);
+            console.log(`📜 Status      : ${aluno.status}`);
+            console.log(`🆔 ID          : ${aluno.id}`);
+            console.log("=============================\n");
         } else {
-            console.log("Aluno não encontrado.");
+            console.log("\n=============================");
+            console.log("   ❌ Aluno não encontrado    ");
+            console.log("=============================\n");
         }
     }
+    
 }
