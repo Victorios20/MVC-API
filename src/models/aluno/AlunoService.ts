@@ -1,33 +1,21 @@
-import axios from "axios";
-import { Aluno } from "./Aluno";
 
-const BASE_URL = 'https://rmi6vdpsq8.execute-api.us-east-2.amazonaws.com/msAluno';
+import { Aluno } from "./Aluno";
+import { AlunoData } from "./AlunoData";
 
 export class AlunoService {
-    private alunosCache: Aluno[] = [];
+    private alunoData = new AlunoData();
 
-
-     async inicializar(): Promise<void> {
-        if (this.alunosCache.length === 0) {
-            console.log('///////////////////////////inicializou Aluno cache///////////////////////////');
-            const response = await axios.get(BASE_URL);
-            this.alunosCache = await response.data.map((aluno: Aluno) => new Aluno(aluno));
-            
-        } else {
-            console.log('///////////////////////////array Aluno Cache preenchido///////////////////////////');
-        }
+    async inicializar(): Promise<void> {
+        await this.alunoData.inicializar();
     }
 
     listarAlunosHistoria(): Aluno[] {
-        return this.alunosCache.filter(
-            (aluno: Aluno) => aluno.curso === 'História' && aluno.modalidade === 'Presencial');
+        return this.alunoData.getCache();
     }
 
     buscarAluno(idOuNome: string): Aluno | null {
-        return this.alunosCache.find(
+        return this.alunoData.getCache().find(
             (aluno: Aluno) => String(aluno.id) === idOuNome || aluno.nome.toLowerCase() === idOuNome.toLowerCase()
         ) || null;
     }
-
-    
 }
