@@ -6,7 +6,7 @@ import { IData } from "../interface/IData";
 const BASE_URL = 'https://qiiw8bgxka.execute-api.us-east-2.amazonaws.com/acervo/biblioteca';
 
 export class BibliotecaData implements IData<Livro> {
-    private  livrosCache: Livro[] = [];
+    private livrosCache: Livro[] = [];
 
      async inicializar(): Promise<void> {
         if (this.livrosCache.length === 0) {

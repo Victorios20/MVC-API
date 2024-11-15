@@ -2,17 +2,18 @@ import { BibliotecaData } from "./BibliotecaData";
 import { Livro } from "./Livro";
 
 export class BibliotecaService {
+    private BibliotecaData = new BibliotecaData();
     async inicializar(): Promise<void> {
-        await BibliotecaData.inicializar();
+        await this.BibliotecaData.inicializar();
     }
 
     buscarLivroPorId(id: number): Livro | undefined { 
-        const livrosCache = BibliotecaData.getCache();
+        const livrosCache = this.BibliotecaData.getCache();
         return livrosCache.find(livro => Number(livro.id) === id);
     }
 
     listarLivrosDoAluno(idAluno: string): Livro[] {
-        const livrosCache = BibliotecaData.getCache();
+        const livrosCache = this.BibliotecaData.getCache();
         return livrosCache.filter(livro => livro.idAluno === idAluno);
     }
 
@@ -28,7 +29,7 @@ export class BibliotecaService {
     }
 
     cancelarReserva(livro: Livro): Livro | undefined {
-        const livrosCache = BibliotecaData.getCache();
+        const livrosCache = this.BibliotecaData.getCache();
         const livroEncontrado = livrosCache.find(livroItem => livroItem.id === livro.id);
 
         if (livroEncontrado) {
